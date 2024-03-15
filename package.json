@@ -6,7 +6,7 @@
   "scripts": {
     "codegen": "graph codegen --output-dir src/types/",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.graph-ams.p2pify.com/c6922d8376ba3aec194e31ba5037ea4e/deploy --ipfs https://api.graph-ams.p2pify.com/c6922d8376ba3aec194e31ba5037ea4e/ipfs polygon-uniswap-v3"
+    "deploy": "graph deploy --node https://api.graph-ams.p2pify.com/a26bbfcaf373028d50f4e36d1aa343ad/deploy --ipfs https://api.graph-ams.p2pify.com/a26bbfcaf373028d50f4e36d1aa343ad/ipfs polygon-uniswap-v3"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.20.3",
