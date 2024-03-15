@@ -139,7 +139,6 @@ type Pool @entity {
   mints: [Mint!]! @derivedFrom(field: "pool")
   burns: [Burn!]! @derivedFrom(field: "pool")
   swaps: [Swap!]! @derivedFrom(field: "pool")
-  collects: [Collect!]! @derivedFrom(field: "pool")
   ticks: [Tick!]! @derivedFrom(field: "pool")
 }
 
@@ -275,7 +274,6 @@ type Transaction @entity {
   burns: [Burn]! @derivedFrom(field: "transaction")
   swaps: [Swap]! @derivedFrom(field: "transaction")
   flashed: [Flash]! @derivedFrom(field: "transaction")
-  collects: [Collect]! @derivedFrom(field: "transaction")
 }
 
 type Mint @entity {
@@ -330,7 +328,7 @@ type Burn @entity {
   owner: Bytes
   # txn origin
   origin: Bytes! # the EOA that initiated the txn
-  # amouny of liquidity burned
+  # amount of liquidity burned
   amount: BigInt!
   # amount of token 0 burned
   amount0: BigDecimal!
@@ -353,7 +351,7 @@ type Swap @entity {
   transaction: Transaction!
   # timestamp of transaction
   timestamp: BigInt!
-  # pool swap occured within
+  # pool swap occurred within
   pool: Pool!
   # allow indexing by tokens
   token0: Token!
@@ -379,39 +377,14 @@ type Swap @entity {
   logIndex: BigInt
 }
 
-type Collect @entity {
-  # transaction hash + "#" + index in collect Transaction array
-  id: ID!
-  # pointer to txn
-  transaction: Transaction!
-  # timestamp of event
-  timestamp: BigInt!
-  # pool collect occured within
-  pool: Pool!
-  # owner of position collect was performed on
-  owner: Bytes
-  # amount of token0 collected
-  amount0: BigDecimal!
-  # amount of token1 collected
-  amount1: BigDecimal!
-  # derived amount based on available prices of tokens
-  amountUSD: BigDecimal
-  # lower tick of position
-  tickLower: BigInt!
-  # uppper tick of position
-  tickUpper: BigInt!
-  # index within the txn
-  logIndex: BigInt
-}
-
 type Flash @entity {
-  # transaction hash + "-" + index in collect Transaction array
+  # transaction hash + "-" + index in Transaction array
   id: ID!
   # pointer to txn
   transaction: Transaction!
   # timestamp of event
   timestamp: BigInt!
-  # pool collect occured within
+  # pool flash occurred within
   pool: Pool!
   # sender of the flash
   sender: Bytes!
@@ -483,7 +456,7 @@ type PoolDayData @entity {
   volumeUSD: BigDecimal!
   # fees in USD
   feesUSD: BigDecimal!
-  # numebr of transactions during period
+  # number of transactions during period
   txCount: BigInt!
   # opening price of token0
   open: BigDecimal!
@@ -527,7 +500,7 @@ type PoolHourData @entity {
   volumeUSD: BigDecimal!
   # fees in USD
   feesUSD: BigDecimal!
-  # numebr of transactions during period
+  # number of transactions during period
   txCount: BigInt!
   # opening price of token0
   open: BigDecimal!
@@ -591,7 +564,7 @@ type TickDayData @entity {
 }
 
 type TokenDayData @entity {
-  # token address concatendated with date
+  # token address concatenated with date
   id: ID!
   # timestamp rounded to current day by dividing by 86400
   date: Int!
@@ -622,7 +595,7 @@ type TokenDayData @entity {
 }
 
 type TokenHourData @entity {
-  # token address concatendated with date
+  # token address concatenated with date
   id: ID!
   # unix timestamp for start of hour
   periodStartUnix: Int!
