@@ -79,7 +79,7 @@ export function fetchTokenDecimals(tokenAddress: Address): BigInt {
   let decimalValue = ZERO_BI
   let decimalResult = contract.try_decimals()
   if (!decimalResult.reverted) {
-    decimalValue = BigInt.fromI32(decimalResult.value)
+    decimalValue = decimalResult.value
   } else {
     // try with the static definition
     let staticTokenDefinition = StaticTokenDefinition.fromAddress(tokenAddress)
