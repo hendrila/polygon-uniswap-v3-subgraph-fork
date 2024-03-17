@@ -5,8 +5,7 @@
   "scripts": {
     "codegen": "graph codegen --output-dir src/types/",
     "build": "graph build",
-    "deploy-hosted": "graph deploy --product hosted-service hendrila/polygon-uniswap-v3",
-    "deploy-studio": "graph deploy --studio polygon-uniswap-v3"
+    "deploy": "graph deploy --product hosted-service hendrila/polygon-uniswap-v3"
   },
     "dependencies": {
       "@graphprotocol/graph-cli": "0.68.5",
