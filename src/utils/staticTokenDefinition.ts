@@ -18,7 +18,7 @@ export class StaticTokenDefinition {
     this.decimals = decimals
   }
 
-  // Get all tokens with a static defintion
+  // Get all tokens with a static definition
   static getStaticDefinitions(): Array<StaticTokenDefinition> {
     let staticDefinitions = new Array<StaticTokenDefinition>(6)
 

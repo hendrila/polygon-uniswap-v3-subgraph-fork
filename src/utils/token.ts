@@ -5,6 +5,7 @@ import { ERC20NameBytes } from '../types/Factory/ERC20NameBytes'
 import { StaticTokenDefinition } from './staticTokenDefinition'
 import { BigInt, Address } from '@graphprotocol/graph-ts'
 import { isNullEthValue } from '.'
+import { ZERO_BI } from './constants'
 
 export function fetchTokenSymbol(tokenAddress: Address): string {
   let contract = ERC20.bind(tokenAddress)
@@ -22,7 +23,7 @@ export function fetchTokenSymbol(tokenAddress: Address): string {
       } else {
         // try with the static definition
         let staticTokenDefinition = StaticTokenDefinition.fromAddress(tokenAddress)
-        if (staticTokenDefinition != null) {
+        if(staticTokenDefinition != null) {
           symbolValue = staticTokenDefinition.symbol
         }
       }
@@ -50,7 +51,7 @@ export function fetchTokenName(tokenAddress: Address): string {
       } else {
         // try with the static definition
         let staticTokenDefinition = StaticTokenDefinition.fromAddress(tokenAddress)
-        if (staticTokenDefinition != null) {
+        if(staticTokenDefinition != null) {
           nameValue = staticTokenDefinition.name
         }
       }
@@ -64,30 +65,28 @@ export function fetchTokenName(tokenAddress: Address): string {
 
 export function fetchTokenTotalSupply(tokenAddress: Address): BigInt {
   let contract = ERC20.bind(tokenAddress)
-  let totalSupplyValue = BigInt.zero()
+  let totalSupplyValue = ZERO_BI
   let totalSupplyResult = contract.try_totalSupply()
   if (!totalSupplyResult.reverted) {
-    totalSupplyValue = totalSupplyResult.value
+    totalSupplyValue = BigInt.fromI32(totalSupplyResult)
   }
   return totalSupplyValue
 }
 
-export function fetchTokenDecimals(tokenAddress: Address): BigInt | null {
+export function fetchTokenDecimals(tokenAddress: Address): BigInt {
   let contract = ERC20.bind(tokenAddress)
   // try types uint8 for decimals
+  let decimalValue = ZERO_BI
   let decimalResult = contract.try_decimals()
-
   if (!decimalResult.reverted) {
-    if (decimalResult.value.lt(BigInt.fromI32(255))) {
-      return decimalResult.value
-    }
+    decimalValue = BigInt.fromI32(decimalResult.value)
   } else {
     // try with the static definition
     let staticTokenDefinition = StaticTokenDefinition.fromAddress(tokenAddress)
-    if (staticTokenDefinition) {
+    if(staticTokenDefinition != null) {
       return staticTokenDefinition.decimals
     }
   }
 
-  return null
+  return decimalValue
 }
