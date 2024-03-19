@@ -3,12 +3,8 @@ description: Uniswap is a decentralized protocol for automated token exchange on
 repository: https://github.com/Uniswap/uniswap-v3-subgraph
 schema:
   file: ./schema.graphql
-graft:
-  base: QmUKRxaVLRpn18UA9mwukAwRQudH9TfBW5wiKCWEJghUS8
-  block: 52769644
 features:
   - nonFatalErrors
-  - grafting
 dataSources:
   - kind: ethereum/contract
     name: Factory
@@ -45,7 +41,7 @@ dataSources:
     source:
       address: '0xC36442b4a4522E871399CD717aBDD847Ab11FE88'
       abi: NonfungiblePositionManager
-      startBlock: 52770140
+      startBlock: 22762313
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
